@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Local Book — Easy, quick, more options</title>
+  <meta name="description" content="Local Book lets stores list their products and helps customers book them easily—quick, friendly, and with more options." />
+  <meta name="theme-color" content="#35c48c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#35c48c;      /* Light green primary */
+      --brand-2:#2ba978;
+      --bg:#f7faf9;
+      --text:#1b1f24;
+      --muted:#6b7280;
+      --white:#ffffff;
+      --border:#e5e7eb;
+      --accent:#0ea5e9;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text); background:var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; background:var(--white);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px;
+    }
+    .logo{
+      display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:0.2px;
+    }
+    .logo-badge{
+      width:36px; height:36px; border-radius:8px; background:var(--brand);
+      color:var(--white); display:grid; place-items:center; font-weight:700;
+    }
+    nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
+    nav a{padding:8px 10px; border-radius:6px}
+    nav a:hover{background:var(--bg)}
+    .cta{
+      background:var(--brand); color:var(--white); padding:10px 14px; border-radius:8px; font-weight:600;
+    }
+    .cta:hover{background:var(--brand-2)}
+    /* Hero */
+    .hero{
+      background:linear-gradient(180deg, #eafff5 0%, #ffffff 100%);
+      border-bottom:1px solid var(--border);
+    }
+    .hero-inner{
+      display:grid; grid-template-columns:1.3fr 1fr; gap:30px; padding:60px 0;
+    }
+    .headline{font-size:34px; font-weight:800; line-height:1.2}
+    .sub{color:var(--muted); margin-top:10px}
+    .pill{
+      display:inline-flex; gap:8px; align-items:center; background:#effdf6; color:#065f46;
+      padding:6px 10px; border-radius:999px; font-weight:600; font-size:13px; border:1px solid #c7f3df;
+    }
+    .hero-actions{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    .input{
+      height:44px; border:1px solid var(--border); background:var(--white);
+      border-radius:10px; padding:0 12px; width:100%;
+    }
+    .card{
+      background:var(--white); border:1px solid var(--border); border-radius:12px; padding:14px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .grid{display:grid; gap:16px}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    /* Sections */
+    section{padding:50px 0}
+    h2{font-size:26px; margin:0 0 14px}
+    h3{font-size:20px; margin:10px 0}
+    p{color:var(--muted)}
+    .badge{font-size:12px; color:#065f46; background:#effdf6; display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid #c7f3df}
+    .list{display:grid; gap:12px}
+    .item{background:var(--white); border:1px solid var(--border); border-radius:10px; padding:14px}
+    .item .actions{display:flex; gap:8px; margin-top:10px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--white); cursor:pointer}
+    .btn.primary{background:var(--brand); color:var(--white); border-color:transparent}
+    .btn.secondary{background:#eefdf7; color:#065f46; border-color:#c7f3df}
+    .btn.link{border:none; background:transparent; color:var(--accent)}
+    /* Footer */
+    footer{
+      background:var(--white); border-top:1px solid var(--border);
+    }
+    .footer-grid{
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:20px; padding:30px 0;
+    }
+    .small{font-size:13px; color:var(--muted)}
+    .copy{border-top:1px solid var(--border); padding:14px 0; font-size:13px; color:var(--muted)}
+    /* Utilities */
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
+    .row{display:flex; gap:12px; flex-wrap:wrap}
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+    .panel{background:var(--white); border:1px solid var(--border); border-radius:12px; padding:16px}
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr 1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      nav ul{display:none}
+      .grid-3{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="logo">
+        <div class="logo-badge" aria-label="LB logo">LB</div>
+        <span>Local Book</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services/Products</a></li>
+          <li><a href="#stores">Stores</a></li>
+          <li><a href="#bookings">My Bookings</a></li>
+          <li><a href="#wishlist">My Wishlist</a></li>
+          <li><a href="#orders">My Orders</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#stores">Find stores</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="pill">Easy • Quick • More options</span>
+        <h1 class="headline">Book products from local stores—without the hassle</h1>
+        <p class="sub">Local Book connects you to nearby shops. Browse, reserve, and pay securely. Friendly, fast, and built for everyone.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#stores">Browse stores</a>
+          <a class="btn" href="#services">How it works</a>
+          <a class="btn secondary" href="https://wa.me/0000000000" target="_blank" rel="noopener">WhatsApp chat</a>
+        </div>
+        <div class="row" style="margin-top:16px">
+          <input class="input" type="search" placeholder="Search products or stores…" aria-label="Search" />
+          <button class="btn primary" onclick="alert('Search submitted')">Search</button>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card"><strong>LB</strong> Local Book is your friendly way to reserve products before you pick them up or get them delivered.</div>
+        <div class="card"><strong>Trust</strong> Verified stores, clear pricing, and instant booking confirmations.</div>
+        <div class="card"><strong>Speed</strong> One-tap booking, real-time availability, and secure payments.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2>About Local Book</h2>
+      <div class="split">
+        <div class="panel">
+          <p>We make it simple for stores to list products and for customers to book them. Our friendly, accessible platform is designed for everyone—no tech skills required.</p>
+          <p>With easy booking and more options, Local Book saves time and unlocks the best local selection.</p>
+        </div>
+        <div class="panel">
+          <h3>What makes us different</h3>
+          <ul class="list">
+            <li class="item"><strong>Easy:</strong> Clean interface, quick checkout.</li>
+            <li class="item"><strong>Quick:</strong> Fast reservations and confirmations.</li>
+            <li class="item"><strong>More options:</strong> Discover multiple stores and compare products.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services/Products -->
+  <section id="services">
+    <div class="container">
+      <h2>Services and products</h2>
+      <div class="grid grid-3">
+        <div class="item">
+          <h3>Store listings</h3>
+          <p>Stores can publish products with photos, pricing, and availability.</p>
+          <div class="actions">
+            <button class="btn primary" onclick="fakeBook()">List a product</button>
+            <button class="btn link" onclick="alert('Learn more')">Learn more</button>
+          </div>
+        </div>
+        <div class="item">
+          <h3>Customer bookings</h3>
+          <p>Reserve items instantly and choose pickup or delivery options.</p>
+          <div class="actions">
+            <button class="btn primary" onclick="fakeBook()">Book now</button>
+            <button class="btn link" onclick="alert('See how booking works')">How it works</button>
+          </div>
+        </div>
+        <div class="item">
+          <h3>Secure payments</h3>
+          <p>Pay safely with your preferred method. We keep it simple and transparent.</p>
+          <div class="actions">
+            <button class="btn primary" onclick="fakePay()">Pay securely</button>
+            <button class="btn link" onclick="alert('Payment options')">Payment options</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stores -->
+  <section id="stores">
+    <div class="container">
+      <h2>Stores</h2>
+      <p>Explore nearby shops and their products. Filter by category, price, and availability.</p>
+      <div class="grid grid-3" id="storesGrid">
+        <!-- Sample store cards -->
+        <div class="item">
+          <h3>Green Mart</h3>
+          <p class="small">Fresh produce, daily essentials</p>
+          <div class="actions">
+            <button class="btn secondary" onclick="openStore('Green Mart')">View products</button>
+            <button class="btn primary" onclick="fakeBook('Green Mart')">Book item</button>
+          </div>
+        </div>
+        <div class="item">
+          <h3>Tech Hub</h3>
+          <p class="small">Accessories, gadgets, repairs</p>
+          <div class="actions">
+            <button class="btn secondary" onclick="openStore('Tech Hub')">View products</button>
+            <button class="btn primary" onclick="fakeBook('Tech Hub')">Book item</button>
+          </div>
+        </div>
+        <div class="item">
+          <h3>Style Corner</h3>
+          <p class="small">Apparel, shoes, gifts</p>
+          <div class="actions">
+            <button class="btn secondary" onclick="openStore('Style Corner')">View products</button>
+            <button class="btn primary" onclick="fakeBook('Style Corner')">Book item</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Bookings -->
+  <section id="bookings">
+    <div class="container">
+      <h2>My bookings</h2>
+      <p>Track your reservations, pickup times, and delivery status.</p>
+      <div class="list" id="bookingList">
+        <div class="item"><strong>No bookings yet.</strong> Book an item to see it here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Wishlist -->
+  <section id="wishlist">
+    <div class="container">
+      <h2>My wishlist</h2>
+      <p>Save products to compare and book later.</p>
+      <div class="list" id="wishlistList">
+        <div class="item"><strong>Your wishlist is empty.</strong> Add items as you browse.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Orders -->
+  <section id="orders">
+    <div class="container">
+      <h2>My orders</h2>
+      <p>View your completed purchases and receipts.</p>
+      <div class="list" id="ordersList">
+        <div class="item"><strong>No orders yet.</strong> Completed purchases will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="split">
+        <div class="panel">
+          <p>We’re remote and available across India. For quick help, chat with us on WhatsApp.</p>
+          <div class="row">
+            <a class="btn secondary" href="https://wa.me/0000000000" target="_blank" rel="noopener">WhatsApp chat</a>
+            <a class="btn" href="mailto:hello@localbook.example">Email us</a>
+          </div>
+        </div>
+        <div class="panel">
+          <form onsubmit="submitContact(event)">
+            <label class="sr-only" for="name">Name</label>
+            <input id="name" class="input" type="text" placeholder="Your name" required />
+            <label class="sr-only" for="email">Email</label>
+            <input id="email" class="input" type="email" placeholder="Your email" required />
+            <label class="sr-only" for="msg">Message</label>
+            <textarea id="msg" class="input" rows="4" placeholder="How can we help?" required></textarea>
+            <div class="row" style="margin-top:10px">
+              <button class="btn primary" type="submit">Send message</button>
+              <button class="btn" type="reset">Clear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section id="faqs">
+    <div class="container">
+      <h2>FAQs</h2>
+      <div class="list">
+        <div class="item">
+          <h3>How do bookings work?</h3>
+          <p>Choose a product, select pickup or delivery, and confirm the reservation. You’ll get a confirmation instantly.</p>
+        </div>
+        <div class="item">
+          <h3>Which payment methods are supported?</h3>
+          <p>We support major payment options. You’ll see available methods during checkout.</p>
+        </div>
+        <div class="item">
+          <h3>Is Local Book free for customers?</h3>
+          <p>Browsing is free. Stores may set pricing and fees for certain services.</p>
+        </div>
+        <div class="item">
+          <h3>Do you operate in all cities?</h3>
+          <p>We’re remote-first and expanding continuously. Availability depends on participating stores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policies -->
+  <section id="policies">
+    <div class="container">
+      <h2>Policies</h2>
+      <div class="grid grid-2">
+        <div class="item">
+          <h3>Privacy policy</h3>
+          <p>We respect your privacy and only collect necessary information to provide our services. Edit this section to match your practices.</p>
+        </div>
+        <div class="item">
+          <h3>Terms</h3>
+          <p>These terms govern your use of Local Book. Add details about user accounts, store responsibilities, and acceptable use.</p>
+        </div>
+        <div class="item">
+          <h3>Refund/Return policy</h3>
+          <p>Refunds and returns are processed according to store policies. Clarify timelines, conditions, and exceptions here.</p>
+        </div>
+        <div class="item">
+          <h3>Disclaimers</h3>
+          <p>Provide disclaimers about product availability, accuracy of listings, and third-party store responsibilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo">
+          <div class="logo-badge">LB</div>
+          <span>Local Book</span>
+        </div>
+        <p class="small" style="margin-top:10px">Local Book helps you discover local stores, book products, and checkout quickly. Friendly by design.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul class="list">
+          <li><a href="#stores">Stores</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#faqs">FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Account</h3>
+        <ul class="list">
+          <li><a href="#bookings">My bookings</a></li>
+          <li><a href="#wishlist">My wishlist</a></li>
+          <li><a href="#orders">My orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Support</h3>
+        <ul class="list">
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#policies">Policies</a></li>
+          <li><a href="https://wa.me/0000000000" target="_blank" rel="noopener">WhatsApp chat</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container copy">© <span id="year"></span> Local Book. All rights reserved.</div>
+  </footer>
+
+  <!-- Simple modals (placeholders) -->
+  <div id="modal" class="sr-only" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div style="position:fixed; inset:0; background:rgba(0,0,0,0.35); display:flex; align-items:center; justify-content:center">
+      <div style="background:#fff; border-radius:12px; padding:18px; width:min(92vw,480px); border:1px solid #e5e7eb">
+        <h3 id="modalTitle">Action</h3>
+        <p id="modalBody" class="small">This is a sample modal. Integrate your backend or payment gateway here.</p>
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" onclick="closeModal()">OK</button>
+          <button class="btn" onclick="closeModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Modal helpers
+    function openModal(title, body){
+      const modal = document.getElementById('modal');
+      document.getElementById('modalTitle').textContent = title || 'Action';
+      document.getElementById('modalBody').textContent = body || 'This is a sample modal.';
+      modal.classList.remove('sr-only');
+    }
+    function closeModal(){
+      const modal = document.getElementById('modal');
+      modal.classList.add('sr-only');
+    }
+
+    // Sample actions (replace with real integrations)
+    function fakeBook(store){
+      openModal('Book product', `Booking flow placeholder${store ? ' for ' + store : ''}. Connect to your backend to create a reservation.`);
+    }
+    function fakePay(){
+      openModal('Payment', 'Payment placeholder. Integrate a payment gateway like Razorpay, Stripe, or PhonePe here.');
+    }
+    function openStore(name){
+      openModal('Store details', `Show products for ${name}. This can link to a dedicated store page.`);
+    }
+    function submitContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      openModal('Message sent', `Thanks, ${name}! We will reply to ${email} shortly.`);
+      e.target.reset();
+    }
+
+    // Wishlist / bookings demo data (client-side only)
+    const bookingList = document.getElementById('bookingList');
+    const wishlistList = document.getElementById('wishlistList');
+    const ordersList   = document.getElementById('ordersList');
+
+    // Example: add demo items on load
+    window.addEventListener('DOMContentLoaded', ()=>{
+      addDemo(wishlistList, 'Wishlist item: Bluetooth headphones');
+      addDemo(bookingList, 'Booking: Fresh apples - Pickup tomorrow 10 AM');
+      addDemo(ordersList, 'Order: Phone case - Delivered');
+    });
+    function addDemo(container, text){
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `<strong>${text}</strong><div class="actions"><button class="btn">Details</button><button class="btn link">Remove</button></div>`;
+      container.prepend(div);
+    }
+  </script>
+</body>
+</html>
